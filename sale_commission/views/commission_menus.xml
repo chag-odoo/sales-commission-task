@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo> 
+    <menuitem id="commission_menus" name="Commissions" parent="sale.sale_menu_root" sequence="30">
+        <menuitem id="commission_plan_menu" action='commission_plan_action' name='Commission Plans'/>
+    </menuitem>
+    <menuitem id="commission_plan_report_menu" name="Commissions" action='commission_plan_report_action' parent="sale.menu_sale_report" sequence="50"/>
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+<!-- List View -->
+    <record id="commission_plan_report_list_view" model="ir.ui.view">
+        <field name="name">commission.plan.report.tree</field>
+        <field name="model">commission.plan.report</field>
+        <field name="arch" type="xml">
+            <tree string="Commissions" editable="bottom">
+                <field name="commission_plan_id"/>
+                <field name="target_id"/>
+                <field name="sales_team_id"/>
+                <field name="salesperson_id"/>
+                <field name="achieved_amount"/>
+                <field name="target_value"/>
+                <field name="com_rate" widget="progressbar"/>
+            </tree>
+        </field>
+    </record>
+
+<!-- Search View -->
+    <record id="commission_plan_report_search_view" model="ir.ui.view">
+        <field name="name">commission.plan.report.search</field>
+        <field name="model">commission.plan.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="salesperson_id"/>
+                <field name="sales_team_id" string="Sales Team"/>
+
+                <group>
+                    <filter name="target_id" string="Quarter Period" context="{'group_by': 'target_id'}" />
+                    <filter name="commission_plan_id" string="Commission Plan" context="{'group_by': 'commission_plan_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+<!-- Pivot View -->
+    <!-- <record id="commission_plan_report_pivot_view" model="ir.ui.view">
+        <field name="name">commission.plan.report.pivot</field>
+        <field name="model">commission.plan.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Sales Commissions Analysis" sample="1">
+                <field name="target_id" type="col"/>
+                <field name="commission_plan_id" type="row"/>
+                <field name="target_amount" type="measure"/>
+                <field name="achieved_amount" type="measure"/>
+            </pivot>
+        </field>
+   </record> -->
+
+    <record id="commission_plan_report_action" model="ir.actions.act_window">
+        <field name="name">Sales Commisions Report</field>
+        <field name="res_model">commission.plan.report</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

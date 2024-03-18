@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- Form View -->
+    <record id="commission_plan_form_view" model="ir.ui.view">
+        <field name="name">commission.plan.form</field>
+        <field name="model">commission.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header> 
+                    <field name="stage" widget="statusbar" statusbar_visible="draft,approved,done,cancelled"/> 
+                    <button name="action_approve" type="object" string="Approve" class="oe_highlight" invisible="stage=='cancelled'"/> 
+                    <button name="action_cancel" type="object" string="Cancel" invisible="stage=='cancelled'"/> 
+                </header>
+                <sheet>
+                <h2>Commission Plan</h2>
+                <h1><field name="name" placeholder="i.e. EU Commissions 2023"/></h1>
+                <group col="2">
+                    <group>
+                      <field name="start_date" string="Dates" widget="daterange" options="{'end_date_field': 'end_date'}"/>
+                      <field name="end_date" invisible="True"/>
+                      <field name="target"/>
+                      <field name="product_ids" string="Products" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                      <field name="company_id"/>
+                      <field name="sales_team_id"/>
+                      <field name="salesperson_id" invisible="sales_team_id==False"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Commission">
+                        <field name="commission_ids" readonly = "stage in ['approved', 'done', 'cancelled']" />
+                    </page>
+                    <page string="Targets">
+                        <field name="target_ids" readonly = "stage in ['approved', 'done', 'cancelled']"/>
+                    </page>
+                </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    
+    <!-- <record id="commission_plan_list_view" model="ir.ui.view">
+        <field name="name">commission.plan.tree</field>
+        <field name="model">commission.plan</field>
+        <field name="arch" type="xml">
+            <tree string="Commission Plans" decoration-success="stage == 'done'" decoration-bf="stage == 'approved'">
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="company_id"/>
+                <field name="stage"/>
+                <field name="sales_team_id" invisible="True"/>
+                <field name="salesperson_id" invisible="True"/>
+            </tree>
+        </field>
+    </record> -->
+
+
+<record id="commission_plan_action" model="ir.actions.act_window">
+    <field name="name">Commission Plans</field>
+    <field name="res_model">commission.plan</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+</odoo>
